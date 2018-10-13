@@ -71,9 +71,14 @@ coverage
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
 
-# Dependency directory
+# Dependency directory - double
 # https://docs.npmjs.com/cli/shrinkwrap#caveats
-node_modules
+# node_modules
 
 # Debug log from npm
 npm-debug.log
+
+########################
+# from MERN stack
+
+package-lock.json

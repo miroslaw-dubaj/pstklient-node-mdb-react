@@ -16,7 +16,7 @@ mongoose
   .then(() => console.log('MongoDB database connected to server'))
   .catch(err => console.log(err));
 
-app.get('/', (req, res) => res.send('Hello world'));
+app.get('/', (req, res) => res.send('Hello node'));
 
 app.use('/api/users', users);
 app.use('/api/profile', profile);
