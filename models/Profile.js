@@ -1,10 +1,9 @@
-const mongoose = reqire('mongoose');
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose');
 
 // Create Schema
-const ProfileSchema = new Schema({
+const ProfileSchema = new mongoose.Schema({
   user: {
-    type: Schema.Types.objectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'users'
   },
   handle: {
@@ -112,7 +111,7 @@ const ProfileSchema = new Schema({
     },
     instagram: {
       type: String
-    },
+    }
   },
   date: {
     type: Date,
