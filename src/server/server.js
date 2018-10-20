@@ -3,11 +3,33 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 
-const users = require('./routes/api/users');
-const profile = require('./routes/api/profile');
-const posts = require('./routes/api/posts');
+const users = require('../../routes/api/users');
+const profile = require('../../routes/api/profile');
+const posts = require('../../routes/api/posts');
 
 const app = express();
+
+const webpack = require('webpack');
+const config = require('../../config/webpack.dev.js');
+const compiler = webpack(config);
+
+const webpackDevMiddleware = require('webpack-dev-middleware')(
+  compiler,
+  config.devServer
+);
+
+const webpackHotMiddlware = require('webpack-hot-middleware')(
+  compiler,
+  config.devServer
+);
+
+// Webpack middlewares
+app.use(webpackDevMiddleware);
+app.use(webpackHotMiddlware);
+
+// Serving static files
+const staticMiddleware = express.static('dist');
+app.use(staticMiddleware);
 
 // Body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -27,7 +49,7 @@ mongoose
 app.use(passport.initialize());
 
 // Passport Config
-require('./config/passport')(passport);
+require('../../config/passport')(passport);
 
 // Api routes
 app.use('/api/users', users);
