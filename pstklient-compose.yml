@@ -15,7 +15,7 @@ services:
     image: mongo
     restart: always
     volumes: 
-      - /../mongodb-pstklient-datadir:/data/db
+      - "/../mongodb-pstklient-datadir:/data/db"
     environment:
       MONGO_INITDB_ROOT_USERNAME: 'mdubaj'
       MONGO_INITDB_ROOT_PASSWORD: 'example123'
