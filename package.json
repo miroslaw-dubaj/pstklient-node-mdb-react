@@ -4,7 +4,7 @@
   "description": "Client app for members of association",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "node ./bin/www",
     "server": "nodemon ./bin/www",
     "start2": "webpack-dev-server --config=config/webpack.dev.js",
     "build": "webpack --config=config/webpack.dev.js",
