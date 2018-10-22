@@ -1,33 +1,33 @@
 import * as React from 'react';
+import { hot } from 'react-hot-loader';
 
-interface CounterProps {
-}
+interface ICounterProps {}
 
-interface CounterState {
+interface ICounterState {
   count: number;
 }
 
-
-export default class Counter extends React.Component<CounterProps, CounterState> {
-  constructor(props: CounterProps) {
-    super(props)
+class Counter extends React.Component<ICounterProps, ICounterState> {
+  constructor(props: ICounterProps) {
+    super(props);
     this.state = {
-      count: 0
-    }
+      count: 0,
+    };
   }
 
-  increment() {
-    this.setState({
-      count: this.state.count + 1
-    })
-  }
-
-
-  render() {
+  public render() {
     return (
       <div onClick={this.increment.bind(this)}>
-        <h1>Counter: {this.state.count}</h1>
+        <h1>Count: {this.state.count}</h1>
       </div>
-    )
+    );
+  }
+
+  private increment() {
+    this.setState({
+      count: this.state.count + 1,
+    });
   }
 }
+
+export default hot(module)(Counter);
