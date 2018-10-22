@@ -1,11 +1,8 @@
 # Node for express by Miroslaw Dubaj
-FROM node:6-alpine
+FROM node:8-alpine
 
 # opening port
 EXPOSE 8080
-
-# tini - zombie process killer
-RUN apk add --update tini
 
 # adding bash for docker exec
 RUN /bin/sh -c "apk add --no-cache bash"
@@ -14,7 +11,10 @@ RUN /bin/sh -c "apk add --no-cache bash"
 RUN mkdir -p usr/src/app
 
 # install nodemon for node development
-RUN npm install -g nodemon
+RUN npm install nodemon -g
+
+# install webpack-dev-server for node development
+RUN npm install webpack-dev-server -g 
 
 # setting working directory
 WORKDIR /usr/src/app
@@ -23,10 +23,10 @@ WORKDIR /usr/src/app
 COPY package.json package.json
 
 # installing dependencies
-RUN npm install && npm cache clean
+RUN npm install && npm cache clean --force
 
 # copying project content
 COPY . .
 
 # start container commands with endpoint in bin/www
-CMD ["nodemon", "./bin/www"]
+CMD ["nodemon", "-L", "./bin/www"]

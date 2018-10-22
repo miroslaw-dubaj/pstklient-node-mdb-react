@@ -12,5 +12,5 @@
     "@babel/preset-react",
     "@babel/preset-typescript"
   ],
-  "plugins": ["@babel/plugin-transform-runtime"]
+  "plugins": ["@babel/plugin-transform-runtime", "fork-ts-checker-webpack-plugin", "react-hot-loader/babel"]
 }

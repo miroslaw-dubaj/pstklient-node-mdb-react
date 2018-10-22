@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { CounterStyle } from 'csstype';
 
 interface CounterProps {
 }
@@ -17,10 +16,17 @@ export default class Counter extends React.Component<CounterProps, CounterState>
     }
   }
 
+  increment() {
+    this.setState({
+      count: this.state.count + 1
+    })
+  }
+
+
   render() {
     return (
-      <div onClick={this.increment}>
-        <h1>Count: {this.state.count}</h1>
+      <div onClick={this.increment.bind(this)}>
+        <h1>Counter: {this.state.count}</h1>
       </div>
     )
   }

@@ -1,15 +1,53 @@
 const path = require('path');
 const webpack = require('webpack');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+
+const CSSModuleLoader = {
+  loader: 'css-loader',
+  options: {
+    modules: true,
+    sourceMap: true,
+    localIdentName: '[local]__[hash:base64:5]',
+    minimize: true
+  }
+};
+
+const CSSLoader = {
+  loader: 'css-loader',
+  options: {
+    modules: false,
+    sourceMap: true,
+    minimize: true
+  }
+};
+
+const postCSSLoader = {
+  loader: 'postcss-loader',
+  options: {
+    ident: 'postcss',
+    sourceMap: true,
+    plugins: () => [
+      autoprefixer({
+        browsers: ['>1%', 'last 4 versions', 'Firefox ESR', 'not ie < 9']
+      })
+    ]
+  }
+};
 
 module.exports = {
   entry: {
+    vendor: [
+      // Required to support async/await
+      '@babel/polyfill'
+    ],
     main: ['./src/main.js']
   },
   mode: 'development',
+  target: 'web',
   output: {
     filename: '[name]-bundle.js',
-    path: path.resolve(__dirname, '../dist'),
+    path: path.resolve(__dirname, 'dist'),
     publicPath: '/'
   },
   devServer: {
@@ -21,36 +59,26 @@ module.exports = {
   },
   devtool: 'source-map',
   resolve: {
-    extensions: ['.ts', '.tsx', '.js']
+    extensions: ['.ts', '.tsx', '.js', '.jsx']
   },
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
+        test: /\.(j|t)sx?$/,
         exclude: /node_modules/,
-        use: [
-          {
-            loader: 'ts-loader'
-          }
-        ]
+        use: {
+          loader: 'awesome-typescript-loader'
+        }
+      },
+
+      {
+        test: /\.scss$/,
+        exclude: /\.module\.scss$/,
+        use: ['style-loader', CSSLoader, postCSSLoader, 'sass-loader']
       },
       {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: [
-          {
-            loader: 'babel-loader'
-          }
-        ]
-      },
-      {
-        test: /\.css$/,
-        use: [
-          {
-            loader: 'style-loader'
-          },
-          { loader: 'css-loader' }
-        ]
+        test: /\.module\.scss$/,
+        use: ['style-loader', CSSModuleLoader, postCSSLoader, 'sass-loader']
       },
       {
         test: /\.jpg$/,
@@ -74,7 +102,8 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
+    new ForkTsCheckerWebpackPlugin(),
+    new webpack.NamedModulesPlugin(),
     new HTMLWebpackPlugin({
       template: './src/index.html'
     })
