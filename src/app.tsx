@@ -1,7 +1,7 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import Counter from './TestCouter';
 import { AppContainer } from 'react-hot-loader';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Counter from './TestCouter';
 
 type ComponentType<P> =
   | React.ComponentClass<P>

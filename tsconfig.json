@@ -23,16 +23,13 @@
     "allowSyntheticDefaultImports": true,
     "baseUrl": "./",
     "typeRoots": [
-      "node_modules/@types",
-      "manual_typings"
+      "node_modules/@types"
     ],
   },
   "exclude": [
     "node_modules",
     "bin",
     "config",
-    "dist",
-    "webpack",
-    "jest",
+    "dist"
   ]
 }

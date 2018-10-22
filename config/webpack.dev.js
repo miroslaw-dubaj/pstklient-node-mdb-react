@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 const CSSModuleLoader = {
   loader: 'css-loader',
@@ -63,10 +64,43 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(j|t)sx?$/,
+        test: /\.ts|\.tsx$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              cacheDirectory: true,
+              babelrc: false,
+              presets: [
+                [
+                  '@babel/preset-env',
+                  { targets: { browsers: 'last 2 versions' } } // or whatever your project requires
+                ],
+                '@babel/preset-typescript',
+                '@babel/preset-react'
+              ],
+              plugins: [
+                '@babel/plugin-syntax-typescript',
+                [
+                  '@babel/plugin-syntax-decorators',
+                  { decoratorsBeforeExport: true }
+                ],
+                '@babel/plugin-syntax-jsx',
+                'react-hot-loader/babel'
+              ]
+            }
+          }
+          // {
+          //   loader: 'ts-loader'
+          // }
+        ]
+      },
+      {
+        test: /\.jsx?$/,
         exclude: /node_modules/,
         use: {
-          loader: 'awesome-typescript-loader'
+          loader: 'babel-loader'
         }
       },
 
@@ -101,6 +135,9 @@ module.exports = {
     ]
   },
   plugins: [
+    new ForkTsCheckerWebpackPlugin(),
+    new webpack.NamedModulesPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
     new HTMLWebpackPlugin({
       template: './src/index.html'
     })
