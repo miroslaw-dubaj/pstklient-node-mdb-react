@@ -69,51 +69,30 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(ts|tsx)$/,
-        include: resolveApp('app/src'),
-        exclude: /node_modules/,
-        use: [
-          {
-            loader: 'babel-loader',
-            options: {
-              cacheDirectory: true,
-              babelrc: false,
-              presets: [
-                [
-                  '@babel/preset-env',
-                  { targets: { browsers: 'last 2 versions' } } // or whatever your project requires
-                ],
-                '@babel/preset-typescript',
-                '@babel/preset-react'
-              ],
-              plugins: [
-                '@babel/plugin-syntax-typescript',
-                [
-                  '@babel/plugin-syntax-decorators',
-                  { decoratorsBeforeExport: true }
-                ],
-                '@babel/plugin-syntax-jsx',
-                'react-hot-loader/babel'
-              ]
-            }
-          },
-          {
-            loader: require.resolve('ts-loader'),
-            options: {
-              // disable type checker - we will use it in fork plugin
-              transpileOnly: true
-            }
-          }
-        ]
-      },
-      {
-        test: /\.jsx?$/,
+        test: /\.(j|t)sx?$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader'
+          loader: 'babel-loader',
+          options: {
+            cacheDirectory: true,
+            babelrc: false,
+            presets: [
+              [
+                '@babel/preset-env',
+                { targets: { browsers: 'last 2 versions' } } // or whatever your project requires
+              ],
+              '@babel/preset-typescript',
+              '@babel/preset-react'
+            ],
+            plugins: [
+              // plugin-proposal-decorators is only needed if you're using experimental decorators in TypeScript
+              ['@babel/plugin-proposal-decorators', { legacy: true }],
+              ['@babel/plugin-proposal-class-properties', { loose: true }],
+              'react-hot-loader/babel'
+            ]
+          }
         }
       },
-
       {
         test: /\.scss$/,
         exclude: /\.module\.scss$/,
@@ -147,9 +126,7 @@ module.exports = {
   plugins: [
     new ForkTsCheckerWebpackPlugin({
       async: false,
-      watch: 'src',
-      tsconfig: 'tsconfig.json',
-      tslint: 'tslint.json'
+      watch: './src/**/*'
     }),
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),

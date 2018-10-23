@@ -23,10 +23,10 @@ WORKDIR /usr/src/app
 COPY package.json package.json
 
 # installing dependencies
-RUN npm install && npm cache clean --force
+RUN npm install
 
 # copying project content
 COPY . .
 
 # start container commands with endpoint in bin/www
-CMD ["npm", "run", "start:dev"]
+CMD ["npm", "start"]
