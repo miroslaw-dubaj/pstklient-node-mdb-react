@@ -1,6 +1,8 @@
 import { hot } from 'react-hot-loader';
 import * as React from 'react';
 
+import * as s from './TestCounter.scss';
+
 
 interface CounterProps { }
 
@@ -19,7 +21,7 @@ class Counter extends React.Component<CounterProps, CounterState> {
   public render() {
     return (
       <div onClick={this.increment.bind(this)}>
-        <h1>Counter: {this.state.count}</h1>
+        <h1 className={s.heading}>Counter: {this.state.count}</h1>
       </div>
     );
   }

@@ -1,4 +1,4 @@
 {
   "restartable": "rs",
-  "ext": "html scss js jsx json"
+  "ext": "scss js ts tsx json"
 }
