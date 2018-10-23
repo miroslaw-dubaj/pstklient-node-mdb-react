@@ -1,7 +1,5 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import Counter from './TestCouter'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Counter from './TestCounter';
 
-ReactDOM.render(
-  <Counter />, document.querySelector('div')
-)
+ReactDOM.render(<Counter />, document.querySelector('#root'));
