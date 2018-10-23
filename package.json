@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node ./bin/www",
     "server": "nodemon ./bin/www",
-    "start:dev": "webpack-dev-server --config=config/webpack.dev.js",
+    "start:dev": "webpack-dev-server --hot --config=config/webpack.dev.js",
+    "start:dev2": "webpack-dev-server --hot",
     "build": "webpack --config=config/webpack.dev.js",
     "dev": "nodemon --inspect --watch config --watch src/server src/server/main.js",
     "test-watch": "nodemon -e ts,tsx -w ./ -x npm run test"

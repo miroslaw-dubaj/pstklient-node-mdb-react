@@ -1,17 +1,17 @@
 # Node for express by Miroslaw Dubaj
-FROM node:8-alpine
+FROM node:8
 
 # opening port
 EXPOSE 8080
-
-# adding bash for docker exec
-RUN /bin/sh -c "apk add --no-cache bash"
 
 # creating working directory
 RUN mkdir -p usr/src/app
 
 # install nodemon for node development
 RUN npm install nodemon -g
+
+# install webpack for node development
+RUN npm install webpack -g 
 
 # install webpack-dev-server for node development
 RUN npm install webpack-dev-server -g 
@@ -29,4 +29,4 @@ RUN npm install && npm cache clean --force
 COPY . .
 
 # start container commands with endpoint in bin/www
-CMD ["nodemon", "-L", "./bin/www"]
+CMD ["npm", "run", "start:dev"]

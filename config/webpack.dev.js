@@ -1,7 +1,11 @@
 const path = require('path');
+const fs = require('fs');
 const webpack = require('webpack');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+
+const appDirectory = fs.realpathSync(process.cwd());
+const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
 
 const CSSModuleLoader = {
   loader: 'css-loader',
@@ -53,6 +57,7 @@ module.exports = {
   devServer: {
     contentBase: 'dist',
     overlay: true,
+    port: 8080,
     stats: {
       colors: true
     }
@@ -64,7 +69,8 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.ts|\.tsx$/,
+        test: /\.(ts|tsx)$/,
+        include: resolveApp('app/src'),
         exclude: /node_modules/,
         use: [
           {
@@ -90,10 +96,14 @@ module.exports = {
                 'react-hot-loader/babel'
               ]
             }
+          },
+          {
+            loader: require.resolve('ts-loader'),
+            options: {
+              // disable type checker - we will use it in fork plugin
+              transpileOnly: true
+            }
           }
-          // {
-          //   loader: 'ts-loader'
-          // }
         ]
       },
       {
@@ -135,11 +145,27 @@ module.exports = {
     ]
   },
   plugins: [
-    new ForkTsCheckerWebpackPlugin(),
+    new ForkTsCheckerWebpackPlugin({
+      async: false,
+      watch: 'src',
+      tsconfig: 'tsconfig.json',
+      tslint: 'tslint.json'
+    }),
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new HTMLWebpackPlugin({
+      inject: true,
       template: './src/index.html'
     })
-  ]
+  ],
+  node: {
+    dgram: 'empty',
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty',
+    child_process: 'empty'
+  },
+  performance: {
+    hints: false
+  }
 };

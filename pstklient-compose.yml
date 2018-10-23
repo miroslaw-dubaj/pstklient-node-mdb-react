@@ -2,7 +2,7 @@ version: '3.1'
 
 services:
   express:
-    image: miroslawdubaj/nodemon
+    image: miroslawdubaj/webpack-hot-react-ts
     ports: 
       - "80:8080"
     volumes: 
@@ -10,7 +10,7 @@ services:
     environment:
       ME_CONFIG_MONGODB_ADMINUSERNAME: 'mdubaj'
       ME_CONFIG_MONGODB_ADMINPASSWORD: 'example123'
-    command: nodemon --legacy-watch ./bin/www
+    command: node ./bin/www
   mongo:
     image: mongo
     restart: always

@@ -18,7 +18,7 @@ class Counter extends React.Component<ICounterProps, ICounterState> {
   public render() {
     return (
       <div onClick={this.increment.bind(this)}>
-        <h1>Count: {this.state.count}</h1>
+        <h1>Counter: {this.state.count}</h1>
       </div>
     );
   }
