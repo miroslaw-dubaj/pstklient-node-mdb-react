@@ -81,7 +81,8 @@ module.exports = {
             options: {
               modules: true,
               namedExport: true,
-              camelCase: true
+              camelCase: true,
+              sass: true
             }
           },
           require.resolve('postcss-loader')

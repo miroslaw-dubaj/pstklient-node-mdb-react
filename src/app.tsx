@@ -1,5 +1,20 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Counter from './TestCounter';
+import Navbar from './components/layout/Navbar';
+import Landing from './components/layout/Landing';
+import Footer from './components/layout/Footer';
 
-ReactDOM.render(<Counter />, document.querySelector('#root'));
+export default class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        <Navbar />
+        <Landing />
+        <Footer />
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(<App />, document.querySelector('#root'));
