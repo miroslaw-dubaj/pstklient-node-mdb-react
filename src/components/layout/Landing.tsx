@@ -3,7 +3,7 @@ import * as styles from './Landing.scss';
 import classNames from 'classnames/bind';
 
 
-let classes = classNames(styles.heading, styles.landingInner, styles.darkOverlay, 'text-light');
+let classes = classNames(styles.landingInner, styles.darkOverlay, 'text-light');
 
 class Landing extends Component {
   render() {

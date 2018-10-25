@@ -28,6 +28,7 @@
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-hot-loader": "^4.3.3",
+    "react-router-dom": "^4.3.1",
     "validator": "^10.8.0"
   },
   "devDependencies": {
@@ -49,6 +50,7 @@
     "@types/react": "^16.4.6",
     "@types/react-dom": "^16.0.6",
     "@types/react-hot-loader": "^4.1.0",
+    "@types/react-router-dom": "^4.3.1",
     "@types/webpack": "^4.4.17",
     "ajv": "^6.5.0",
     "autoprefixer": "^9.3.0",
